@@ -2,19 +2,31 @@ import React from 'react';
 import logo from './logo.svg';
 import Toolbar from './layout/toolbar'
 import Burger from './layout/burger'
-import Home from './components/home'
+import Home from './pages/home'
+import ProductDetails from './pages/productDetails'
+import ChatPage from './pages/chatPage'
 import './App.css';
+import GlobalState from './context/globalState'
+import {Switch, Route} from 'react-router'
+
 
 function App() {
   return (
-    <div className="App">
-      <Toolbar />
-      <Burger />
-      <div className="toolbar-filler"></div> {/* filler for fixed toolbar */}
-      <header className="App-header">
-        <Home />
-      </header>
-    </div>
+    <GlobalState>
+      <div className="App">
+        <Toolbar />
+        <Burger />
+        <div className="toolbar-filler"></div> {/* filler for fixed toolbar */}
+        <header className="App-header">
+         <Switch>
+
+          <Route path="/product/:id" component={ProductDetails} />
+          <Route path="/chat/:id" component={ChatPage} />
+          <Route path="/" component={Home} />
+         </Switch>
+        </header>
+      </div>
+    </GlobalState>
   );
 }
 

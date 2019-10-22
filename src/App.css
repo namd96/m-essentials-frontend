@@ -130,6 +130,32 @@ color : #42b983 !important
     margin-left: 27.5%;
   }
 }
+
+.toggle-button {
+  /* flex: 1 */
+}
+
+.toggle-button-box {
+
+  height: 18px;
+  width: 41px;
+  border-radius: 10.29px;
+  background-color: rgba(190, 165, 124, 0.3);
+  margin-top: -5%;
+  float: right;
+  margin-right: 9%;
+  cursor: pointer;
+}
+
+.toggle-button-oval {
+
+  height: 24px;
+  width: 24.3px;
+  border-radius: 12px;
+  background-color: #BEA57C;
+  /* float: right; */
+
+}
 @media screen and (min-width: 1600px) {
   .navbar-brand{
     margin-left: 46.5%;
