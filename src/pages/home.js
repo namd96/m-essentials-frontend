@@ -25,6 +25,7 @@ const Home = props => {
             })
     }
   const  loginCalled =() =>{
+      console.log("callig data again")
         callAllData()
     }
 

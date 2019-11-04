@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import '../styles/productCard.css';
+import '../styles/productdetails.css';
 import { Card, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom';
 import GlobalContext from '../context/globalContext'

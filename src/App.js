@@ -5,6 +5,7 @@ import Burger from './layout/burger'
 import Home from './pages/home'
 import ProductDetails from './pages/productDetails'
 import ChatPage from './pages/chatPage'
+import Messages from './pages/messages'
 import './App.css';
 import GlobalState from './context/globalState'
 import {Switch, Route} from 'react-router'
@@ -22,6 +23,7 @@ function App() {
 
           <Route path="/product/:id" component={ProductDetails} />
           <Route path="/chat/:id" component={ChatPage} />
+          <Route path="/messages" component={Messages} />
           <Route path="/" component={Home} />
          </Switch>
         </header>

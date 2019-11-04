@@ -1,0 +1,30 @@
+.details-cointainer{
+    display: flex;
+    width : 80%;
+    height: auto;
+    margin: 0px auto;
+    text-align: left;
+    padding-top: 5%
+}
+.product-image{
+    max-height: 664px
+}
+.details-image-container{
+    width : 90%;
+    
+}
+.details-details-container{
+    width : 90%;
+    display: flex;
+    flex-direction: column
+}
+
+.product-cost{
+    color: gray;
+    font-size: 18px;
+}
+
+.vendor-heading { 
+    font-size: 18px;
+    font-weight: 100;
+}

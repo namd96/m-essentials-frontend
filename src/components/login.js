@@ -47,7 +47,10 @@ export default class Login extends React.Component {
                 .then((res) => {
                     if (!res.err && endpoint == "login") {
                         localStorage.setItem("userData", res.token)
+                        localStorage.setItem("userId", res.user_id)
+                        requests.setToken()
                         this.props.loginCalled()
+
                     } else if ((!res.err && endpoint == "register")) {
                         alert("Yay,registered successfully! please login again.")
                         this.toggleRegister()
