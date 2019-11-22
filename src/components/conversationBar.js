@@ -57,10 +57,10 @@ const ConversationBar = props => {
                 {/* {JSON.stringify(latestMessage[cmdsm])} */}
                 {
                     messengers && latestMessage && messengers.map((message, idx) => {
-                        return (
-                            <div className="conversation-bar" onClick={() => handleCurrentChatSelector(message.sender_id)}>
+                        return ( message.sender_id == myId ? "" :
+                              <div className="conversation-bar" onClick={() => handleCurrentChatSelector(message.sender_id)}>
                                 <div className="sender-name clamp-1" >{message.sender}</div>
-                                <div className="latest-message" >{message.sender} : {` `}{(latestMessage[idx]) ? latestMessage[idx][message.sender_id] : ""}</div>
+                    <div className="latest-message" >{message.sender} : {` `}{(latestMessage[idx]) ? latestMessage[idx][message.sender_id] : ""}</div> 
                                 <hr className="conversaton-separator" />
                             </div>
                         )
@@ -69,9 +69,8 @@ const ConversationBar = props => {
             </div>
             <div className="current-conversation">
                 {curr_id && <ChatPage history={messages} first_id={curr_id} second_id={myId} />}
-                {!curr_id && <div className="sender-name" >Please click on convrsations to see the messages</div>}
+                {!curr_id && <div className="sender-name" style={{padding : "3%"}}>Please click on convrsations to see the messages</div>}
                 {/* <div className="messages-conversation">
-
                     {
                         messages && messages.map((message) => {
                             return (<div className="message-displayer">
@@ -81,8 +80,6 @@ const ConversationBar = props => {
                             </div>)
                         })
                     }
-
-
                 </div>
                 {messages && <div style={{ marginTop: "2%" }}> <input className="message-in"></input>
                     <Button className="message-send" >SEND</Button>

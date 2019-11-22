@@ -20,7 +20,7 @@ const ProductDetails = props => {
         requests.call("get", `product/${props.match.params.id}`)
             .then((res) => {
                 console.log(res)
-                setProduct(res.data[0])
+                setProduct( res.data ? res.data[0] : false)
             })
     }, [])
 

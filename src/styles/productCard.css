@@ -2,7 +2,8 @@
     min-height: 120px;
     min-width: 40px;
     max-width: 90%;
-    border : 1px solid #42b983;
+    background-color: white;
+    /* border : 1px solid #42b983; */
     border-radius: 13px;
     margin: 0px auto;
     padding-left: 25px;
@@ -14,6 +15,7 @@
 .product-card-title{
     font-weight: 300 ;
     text-align: left;
+    margin-top: 0.5rem
 
 }
 .product-card-list-headings{
@@ -25,6 +27,12 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical !important;
     overflow: hidden;
+}
+.product-card-list-headings-no-clamp{
+    color:#9b9b9b !important;
+    font-weight: 600;
+    font-size: 18px;
+
 }
 .black{
     color : #42b983;
@@ -41,13 +49,23 @@
  width:  260px;
  object-fit: cover
 }
+.slick-prev, .slick-next{
+    color : #42b983 !important;
+}
+.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus{
+    color : #42b983 !important;
+
+}
 .product-card-list-text{
-    font-size: 18px;
+    /* font-size: 18px; */
     text-align: justify;
     display: -webkit-box !important;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical !important;
     overflow: hidden;
+}
+.MuiPaper-elevation1-5{
+    box-shadow: unset !important
 }
 .clamp-1{
     display: -webkit-box !important;
@@ -60,10 +78,37 @@
     background-color: #42b983 !important;
     border-color: #42b983 !important;
 }
+.mycard-avatar{
+    background-color: red[500]
+}
+.mycard {
+    max-width: 315px;
+}
+.MuiPaper-root-2 .MuiPaper-elevation1-5 .MuiPaper-rounded-3 .MuiCard-root-1 .mycard{
+padding: 8%
+}
+.MuiCard-root-1{
+padding: 8%
+}
+.MuiCard-root-1{
+    background-color: white !important;
+    cursor: pointer;    
+    margin-right: 5% 
 
+  }
+  .mycard-media {
+    height: 0;
+    padding-top: '56.25%';
+  }
 .product-card-container {
     display: flex;
-    justify-content: space-evenly
+    justify-content: space-between;
+    background-color: white;
+    padding: 1%;
+
+}
+.MuiCardContent-root-72{
+    min-height: 80px;
 }
 @media screen and (max-width: 767px) {
 .product-card-container {

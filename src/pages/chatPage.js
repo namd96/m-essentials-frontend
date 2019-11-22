@@ -5,7 +5,8 @@ import '../styles/chatpage.css'
 import { requests } from '../api/agent'
 const ChatPage = props => {
     const [listReceived, setListReceived] = useState([])
-    console.log("chatpage rendered again",props.history)
+    const [historyReceived, setHistoryReceived] = useState([])
+    console.log("chatpage rendered again", props.history)
 
     var myId = localStorage.getItem("userId")
     const [message, setMessage] = useState({
@@ -19,13 +20,13 @@ const ChatPage = props => {
     const onSend = () => {
         socket.emit('chat', message)
         console.log("[track this]", message)
-        setListReceived(listReceived => listReceived.concat({ text: message.message, id: message.id }))
+        setListReceived(listReceived => listReceived.concat({ message: message.message, id: message.id }))
 
         setMessage({
             ...message, message: ""
         })
-        requests.call("post", `message/${message.id}`,{message  : message.message})
-        .then((res)=>{console.log(res)})
+        // requests.call("post", `message/${message.id}`,{message  : message.message})
+        // .then((res)=>{console.log(res)})
 
     }
     const handleInputChange = event => {
@@ -41,24 +42,36 @@ const ChatPage = props => {
         setSocket(socket)
         socket.emit('auth', token)
         console.log("sent authentication")
-        // console.log("[list]", list)
+        console.log("[list]", props.history)
+
         socket.on('chat', (data) => {
+
+            // console.log("res")
             console.log("message object", data)
-            setListReceived(listReceived => listReceived.concat({ text: data.message, id: data.receiver_id }))
+            setListReceived(listReceived => listReceived.concat({ message: data.message, id: data.receiver_id }))
+
         });
     }, [])
+    useEffect(() => {
+        setHistoryReceived(props.history)
+        setListReceived([])
+    }, [props.history])
+
     return <div>
         <div className="chat-window">
             <div style={{ color: "black" }}>
             </div>
+
             {
-              props.history && props.history.map((message, idx) => {
-                    return <div className="message-displayer"><div className={message.receiver_id != myId ? "text-container-sender" : "text-container-receiver"}>{message.message}</div></div>
+                historyReceived && historyReceived.map((message, idx) => {
+                    return <div className="message-displayer"><div className={message.receiver_id != myId ? "text-container-sender" : "text-container-receiver"}>
+                        {message.message}</div></div>
                 })
             }
             {
-                listReceived.map((message, idx) => {
-                    return <div className="message-displayer"><div className={message.id != myId ? "text-container-sender" : "text-container-receiver"}>{message.text}</div></div>
+                listReceived && listReceived.map((message, idx) => {
+                    return <div className="message-displayer"><div className={message.id != myId ? "text-container-sender" : "text-container-receiver"}>
+                        {message.message}</div></div>
                 })
             }
         </div>

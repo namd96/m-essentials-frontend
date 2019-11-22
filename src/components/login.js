@@ -43,11 +43,12 @@ export default class Login extends React.Component {
             if (!this.state.authCreds.handle) { alert("Please enter username!"); return; }
             if (!this.state.authCreds.password) { alert("Please enter password!"); return; }
             // if (validateIfInputIsEmail(this.state.authCreds.email)) {
-            requests.rawCall("post", endpoint, this.state.authCreds)
+            requests.rawCall("post", this.props.vendor ? "vendor/login" : endpoint, this.state.authCreds)
                 .then((res) => {
                     if (!res.err && endpoint == "login") {
                         localStorage.setItem("userData", res.token)
                         localStorage.setItem("userId", res.user_id)
+                        localStorage.setItem("userName", res.user_name)
                         requests.setToken()
                         this.props.loginCalled()
 
