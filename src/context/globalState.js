@@ -7,6 +7,8 @@ const GlobalState = props => {
     // let [results, setResults] = useState(false);
     let [productsList, setProductsList] = useState(false);
         async function fetchProducts(query) {
+
+            console.log("setting the state withc v")
             let result = [];
             await requests.call("get", query ? `products?query=${query}` : "products")
                 .then((res) => {

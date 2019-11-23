@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import Toolbar from './layout/toolbar'
+import Footer from './layout/footer'
 import Burger from './layout/burger'
 import Home from './pages/home'
 import ProductDetails from './pages/productDetails'
@@ -37,6 +38,7 @@ function App() {
             <Route path="/vendor/my-products" component={MyProducts} />
             <Route path="/vendor" component={VendorHome} />
           </Switch>
+          <Footer/>
         </div> :
           <div className="App">
             <Toolbar />
@@ -53,6 +55,8 @@ function App() {
                 <Route path="*" component={NotFound} />
               </Switch>
             </header>
+          <Footer/>
+
           </div>
       }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import ProductCard from '../components/productCard';
+import SeviceCard from '../components/serviceCard';
 import GlobalContext from '../context/globalContext'
 import { requests } from '../api/agent';
 import Login from '../components/login'
@@ -7,12 +8,18 @@ const Home = props => {
     const globalContext = useContext(GlobalContext);
     const [queryTest, setQueryTest] = useState(false);
     let [productsList, setProductsList] = useState(false);
+    let [serviceList, setServiceList] = useState(false);
     useEffect(() => {
         callAllData()
     }, [])
 
     const callAllData = () => {
-
+        requests.call("get","meta-services")
+        .then((res)=>{
+            console.log(res)
+            setServiceList(res.data)
+        
+        })
         globalContext.fetchProducts()
             .then((res) => {
                 console.log("[working]", res);
@@ -34,7 +41,7 @@ const Home = props => {
             <Login loginCalled = {loginCalled.bind(this)} />
         )
     }
-    return <div>
+    return <div style={{paddingBottom : "6%"}}>
 
         <br />
         <span>Home</span>
@@ -42,7 +49,7 @@ const Home = props => {
 
         {/* globalContext.fetchProducts("test")={globalContext.fetchProducts("test")} */}
         <ProductCard productData={productsList} title={"Latest"} />
-        <ProductCard productData={queryTest} title={"Around you test"} />
+        <SeviceCard serviceData={serviceList} title={"Services offered"} />
     </div>
 }
 

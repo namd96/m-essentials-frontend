@@ -1,0 +1,10 @@
+.footer-box{
+    height: auto;
+    padding: 10%;
+    background-color: #f8f9fa;
+
+    /* background-image: linear-gradient(#42b98329, #e3f4ec); */
+    color : #42b983 ;
+    font-weight: 700;
+    font-size: 24px ;
+}

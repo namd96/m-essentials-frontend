@@ -7,7 +7,8 @@
     padding-top: 5%
 }
 .product-image{
-    max-height: 664px
+    max-height: 664px;
+    width: inherit
 }
 .details-image-container{
     width : 90%;

@@ -20,9 +20,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Redirect } from 'react-router-dom';
 
-const ProductCardSingle = props =>{
+const ServiceCardSingle = props =>{
 
-    const [productData, setProductData] = useState(false);
+    const [serviceData, setserviceData] = useState(false);
     const [redirection, setRedirection] = useState(false)
 
     const handleViewDetailsClick = id => {
@@ -33,12 +33,12 @@ const ProductCardSingle = props =>{
     if (redirection) {
         console.log("redirecting to", redirection)
         return (
-            <Redirect push to={`/product/${redirection}`} />
+            <Redirect push to={`/service/${redirection}`} />
 
         )
     }
     return(
-        <Card className="mycard" onClick={handleViewDetailsClick.bind(this, props.product.product_id)}>
+        <Card className="mycard" onClick={handleViewDetailsClick.bind(this, props.service.service_id)}>
         <CardHeader
             // avatar={
             //   <Avatar aria-label="recipe" className="mycard-avatar">
@@ -50,20 +50,20 @@ const ProductCardSingle = props =>{
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={<p className="clamp-1">{props.product.product_name}</p>}
-            subheader={<div style={{ display: "flex", justifyContent: "center", marginLeft: "-9px" }}><icon class="material-icons-outlined black" >room</icon>      <span className="clamp-1">{props.product.product_location}</span></div>}
+            title={<p className="clamp-1">{props.service.meta_service_name}</p>}
+            subheader={<div style={{ display: "flex", justifyContent: "center", marginLeft: "-9px" }}><icon class="material-icons-outlined black" >room</icon>      <span className="clamp-1">{props.service.location}</span></div>}
 
         />
         <CardMedia
             className="mycard-media"
             style={{ height: 0, paddingTop: '56.25%' }}
-            image={props.product.product_img}
-            title={props.product.product_name}
+            image={props.service.meta_service_img}
+            title={props.service.meta_service_name}
         />
         <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-                <div className="product-card-list-text">
-                    {props.product.product_description}
+                <div className="service-card-list-text">
+                    {props.service.meta_desc}
                 </div>
             </Typography>
         </CardContent>
@@ -81,4 +81,4 @@ const ProductCardSingle = props =>{
     )
 }
 
-export default ProductCardSingle;
+export default ServiceCardSingle;
