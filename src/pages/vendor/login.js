@@ -21,6 +21,7 @@ const VendorLogin = props => {
         return <div>
             <Button onClick={handleFormOpen.bind(this, "product")}>Create A Product</Button>
             <Button onClick={handleFormOpen.bind(this, "service")}>Create A Service</Button>
+            <Button onClick={handleFormOpen.bind(this, "request")}>Create A request</Button>
         </div>
     }
 

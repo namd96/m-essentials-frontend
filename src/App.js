@@ -13,6 +13,7 @@ import NotFound from './pages/404';
 import VendorHome from './pages/vendor/login';
 import CreateService from './pages/vendor/createService';
 import CreateProduct from './pages/vendor/createProduct';
+import CreateRequest from './pages/vendor/createRequest';
 import MyServices from './pages/vendor/services';
 import MyProducts from './pages/vendor/products';
 // import CreateProduct from './pages/vendor/createProduct';
@@ -35,6 +36,7 @@ function App() {
           <Switch>
             <Route path="/vendor/create-a-service" component={CreateService} />
             <Route path="/vendor/create-a-product" component={CreateProduct} />
+            <Route path="/vendor/create-a-request" component={CreateRequest} />
             <Route path="/vendor/my-messages" component={Messages} />
             <Route path="/vendor/my-services" component={MyServices} />
             <Route path="/vendor/my-products" component={MyProducts} />
