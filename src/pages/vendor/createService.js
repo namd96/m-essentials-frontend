@@ -153,6 +153,7 @@ export default class CreateService extends React.Component {
                                 { type: "text", inputType: "number", name: "meta_cost", title: "Cost for your service?", isRequired: true, },
                                 { type: "boolean", name: "meta_cost_breakdown", title: "Can your service be cost customized ?", isRequired: true, },
 
+
                             ]
                         }
                     }, function () {
@@ -176,8 +177,8 @@ export default class CreateService extends React.Component {
 
         var model = new Survey.Model(this.state.jsonSample);
         return <div >
-           <div className="form-header"> Create a service</div>
-            {this.state.model && <div   className="form-container"><Survey.Survey model={this.state.model} onComplete={this.onComplete.bind(this)}></Survey.Survey></div>}
+            <div className="form-header"> Create a service</div>
+            {this.state.model && <div className="form-container"><Survey.Survey model={this.state.model} onComplete={this.onComplete.bind(this)}></Survey.Survey></div>}
         </div>
     }
 }

@@ -10,6 +10,8 @@ const Products = props => {
     const [model, setModel] = useState(false)
     const [subMenu, setSubMenu] = useState(true)
     const [choices, setChoices] = useState(true)
+    const [activeSubService, setActiveSubService] = useState(true)
+    const [activeService, setActiveService] = useState(true)
     // const [serviceList, setServiceList] = useState(false)
 
     const addMenuBtn = {
@@ -19,41 +21,19 @@ const Products = props => {
     }
     useEffect(() => {
         console.log("doing this again")
-       
-getData()
+
+        getData()
     }, [])
-const getData =()=>{
-    requests.call("get", "vendor/meta_service")
-    .then((result) => {
-        console.log("meta choice", result)
-        setServiceList(result.data)
-        requests.call("get", `vendor/metamenu/${result.data[0].meta_service_id}`)
-            .then((res) => {
-                console.log(res)
-                var menu = [];
-                console.log("check", jsonSample)
-
-                menu = res.data.map((el) => ({ text: el.name, value: el.sub_service_id }))
-                setChoices(menu)
-                setJsonSample({
-                    "completedHtml": "",
-                    elements: [
-                        { type: "text", name: "service_name", title: "Mention sub service name", isRequired: true },
-                        { type: "text", name: "descr", title: "Description", isRequired: true, },
-                        { type: "text", name: "location", title: "Location", isRequired: true, },
-                        { type: "text", inputType: "number", name: "meta_cost", title: "Cost for your service?", isRequired: true, },
-                        { type: "boolean", name: "cost_breakdown", title: "Can your service be cost customized ?", isRequired: true, },
-                        { type: "boolean", name: "add_menu", title: "Add menu items to this service", isRequired: true, },
-                        { type: "dropdown", name: "menu", choices: menu, isRequired: true, },
-                    ]
-
-                })
+    const getData = () => {
+        requests.call("get", "vendor/meta_service")
+            .then((result) => {
+                console.log("meta choice", result)
+                setServiceList(result.data)
+                settingJsonSample(result.data[0].meta_service_id)
+                setModel(new Survey.Model(jsonSample));
 
             })
-        setModel(new Survey.Model(jsonSample));
-
-    })
-}
+    }
     useEffect(() => {
         setModel(new Survey.Model(jsonSample));
     }, [jsonSample])
@@ -61,7 +41,11 @@ const getData =()=>{
 
     const handleSubServiceClick = (id) => {
 
-        console.log("see sub service", id)
+        console.log("see sub service", id)  
+        fetchSubServiceData(id);
+    }
+    
+    const fetchSubServiceData = id =>{
         requests.call("get", `vendor/services/${id}`)
             .then((res) => {
                 console.log(res)
@@ -70,15 +54,20 @@ const getData =()=>{
                     [id]: res.data
                 })
             })
+        setActiveSubService(id);
+        settingJsonSample(id);
 
-
+    }
+    const settingJsonSample = (id) => {
+        setActiveService(id)
         requests.call("get", `vendor/metamenu/${id}`)
             .then((res) => {
                 console.log(res)
                 var menu = [];
                 console.log("check", jsonSample)
 
-                menu = res.data.map((el) => ({ text: el.name, value: el.sub_service_id }))
+                menu = res.data.map((el) => ({ text: el.name__, value: el.name__ }))
+                // menu = res.data.map((el) => ({ text: el.name__, value: el.sub_service_id }))
 
                 setJsonSample({
 
@@ -87,22 +76,61 @@ const getData =()=>{
                         { type: "text", name: "service_name", title: "Mention sub service name", isRequired: true },
                         { type: "text", name: "descr", title: "Description", isRequired: true, },
                         { type: "text", name: "location", title: "Location", isRequired: true, },
-                        { type: "text", inputType: "number", name: "meta_cost", title: "Cost for your service?", isRequired: true, },
+                        { type: "text", inputType: "number", name: "cost", title: "Cost for your service?", isRequired: true, },
                         { type: "boolean", name: "cost_breakdown", title: "Can your service be cost customized ?", isRequired: true, },
-                        { type: "boolean", name: "add_menu", title: "Add menu items to this service", isRequired: true, },
-                        { type: "dropdown", name: "menu", choices: menu, isRequired: true, },
+                        // { type: "boolean", name: "add_menu", title: "Add menu items to this service", isRequired: true, },
+                        // { type: "dropdown", name: "menu", choices: menu, isRequired: true, },
+                        {
+                            "type": "paneldynamic",
+                            "name": "menuItem",
+                            "title": "Add menu item to this service",
+                            "templateElements": [
+                                {
+                                    "type": "dropdown",
+                                    "name": "name__",
+                                    "title": "Add menu item to this service",
+                                    "choices": menu
+                                },
+                                { type: "text", name: "cost", title: "Cost", isRequired: false, },
+                                { type: "text", name: "quantity", title: "Quantity", isRequired: false, },
+
+                            ]
+                        },
+                        {
+                            "type": "paneldynamic",
+                            "name": "menuList",
+                            "title": "Add item to the menu",
+                            "templateElements": [
+                                { type: "text", name: "name__", title: "Enter the menu item", isRequired: false, },
+                                { type: "text", name: "cost", title: "Cost", isRequired: false, },
+                                { type: "text", name: "quantity", title: "Quantity", isRequired: false, },
+                            ]
+                        },
                     ]
-
-
+                })
+            })
+    }
+    const handleAddSubServiceClick = (survey, options, id) => {
+        console.log("adding sub service", survey.data, options, activeSubService, activeService);
+        requests.call("post", `vendor/service/${activeService}`, survey.data)
+            .then((res) => {
+                survey.data.menuItem && survey.data.menuItem.length && survey.data.menuItem.map((menu) => {
+                    createMenuAPI(menu,res.id)
+                })
+                survey.data.menuList && survey.data.menuList.length && survey.data.menuList.map((menu) => {
+                    createMenuAPI(menu,res.id)
                 })
             })
 
 
-
     }
-    const handleAddSubServiceClick = (survey, options, id) => {
-        console.log("adding sub service", survey.data, id)
+    const createMenuAPI = (menu,id) => {
+        menu = { ...menu, meta_service_id: activeService }
 
+        requests.call("post", `vendor/menu/${id}`, menu)
+            .then((res) => {
+                fetchSubServiceData(activeService)
+            })
     }
     console.log("rendering")
     const handleSubmenuClick = (id) => {
@@ -120,7 +148,7 @@ const getData =()=>{
         requests.call("put", `vendor/toggle-menu/${id}/${status ? 0 : 1}`)
             .then((res) => {
                 console.log(res)
-               getData()
+                getData()
             })
 
     }
@@ -128,7 +156,7 @@ const getData =()=>{
         requests.call("put", `vendor/toggle-meta-service/${id}/${status ? 0 : 1}`)
             .then((res) => {
                 console.log(res)
-            getData()
+                getData()
             })
     }
     // var model = new Survey.Model(jsonSample)
@@ -173,7 +201,7 @@ const getData =()=>{
                                                     <div >
                                                         {subMenu[el.sub_id] && subMenu[el.sub_id].map((item) => {
                                                             return <div>
-                                                                <input type="checkbox" onChange={handleMakeMenuInactive.bind(this, item.menu_id, item.status, el.sub_id)} name={item.menu_id} checked={item.status ? true : false} />{item.name}
+                                                                <input type="checkbox" onChange={handleMakeMenuInactive.bind(this, item.menu_id, item.status, el.sub_id)} name={item.menu_id} checked={item.status ? true : false} />{item.name__}
                                                             </div>
                                                         })}
                                                     </div>
@@ -188,7 +216,7 @@ const getData =()=>{
                                             {/* "jsonsample"{JSON.stringify(jsonSample)} */}
                                             <div className="form-header">  Add a Sub-services to this service </div>
                                             <div className="form-container">
-                                                <Survey.Survey model={model} onComplete={(survey, options) => handleAddSubServiceClick.bind(survey, options, service.meta_service_id)}>
+                                                <Survey.Survey model={model} onComplete={handleAddSubServiceClick.bind(this)}>
                                                 </Survey.Survey>
 
                                             </div>

@@ -40,7 +40,12 @@
   left: 36px;
   top: 15px;
 }
- 
+.MuiPaper-elevation1-5{
+  box-shadow: unset !important
+}
+.MuiPaper-elevation1{
+  box-shadow: unset !important
+}
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
   background: #373a47;

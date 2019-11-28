@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import ProductCard from '../components/productCard';
-import SeviceCard from '../components/serviceCard';
+import CardBox from '../components/cardbox';
+// import SeviceCard from '../components/serviceCard';
 import GlobalContext from '../context/globalContext'
 import { requests } from '../api/agent';
 import Login from '../components/login'
@@ -48,8 +48,8 @@ const Home = props => {
         <br />
 
         {/* globalContext.fetchProducts("test")={globalContext.fetchProducts("test")} */}
-        <ProductCard productData={productsList} title={"Latest"} />
-        <SeviceCard serviceData={serviceList} title={"Services offered"} />
+        <CardBox productData={productsList} title={"Latest"} productCard={true}/>
+        <CardBox serviceData={serviceList} title={"Services offered"}  serviceCard={true} />
     </div>
 }
 

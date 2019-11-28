@@ -5,6 +5,7 @@ import Footer from './layout/footer'
 import Burger from './layout/burger'
 import Home from './pages/home'
 import ProductDetails from './pages/productDetails'
+import ServiceDetails from './pages/serviceDetails'
 import ChatPage from './pages/chatPage';
 import SearchPage from './pages/searchPage'
 import Messages from './pages/messages';
@@ -16,6 +17,7 @@ import MyServices from './pages/vendor/services';
 import MyProducts from './pages/vendor/products';
 // import CreateProduct from './pages/vendor/createProduct';
 import './App.css';
+import './styles/productCard.css';
 import GlobalState from './context/globalState'
 import { Switch, Route } from 'react-router'
 
@@ -48,6 +50,7 @@ function App() {
               <Switch>
                 <Route path="/search/:query" component={SearchPage} />
                 <Route path="/product/:id" component={ProductDetails} />
+                <Route path="/service/:id" component={ServiceDetails} />
                 <Route path="/chat/:id" component={ChatPage} />
                 <Route path="/messages" component={Messages} />
                 <Route path="/search/" component={NotFound} />

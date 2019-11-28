@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "survey-react/survey.css";
+import './styles/productCard.css'
 ReactDOM.render(
     <Router >
 

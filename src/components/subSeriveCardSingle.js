@@ -20,7 +20,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Redirect } from 'react-router-dom';
 
-const ServiceCardSingle = props =>{
+const SubServiceCardSingle = props =>{
 
     const [serviceData, setserviceData] = useState(false);
     const [redirection, setRedirection] = useState(false)
@@ -38,7 +38,10 @@ const ServiceCardSingle = props =>{
         )
     }
     return(
-        <Card className="mycard" onClick={handleViewDetailsClick.bind(this, props.service.meta_service_id)}>
+
+
+        
+        <Card className="mycard" >
         <CardHeader
             // avatar={
             //   <Avatar aria-label="recipe" className="mycard-avatar">
@@ -50,20 +53,25 @@ const ServiceCardSingle = props =>{
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={<p className="clamp-1">{props.service.meta_service_name}</p>}
+            title={<p className="clamp-1">{props.service.service_name} <span className="product-cost">Rs {` `}{props.service.cost}</span></p>}
             subheader={<div style={{ display: "flex", justifyContent: "center", marginLeft: "-9px" }}><icon class="material-icons-outlined black" >room</icon>      <span className="clamp-1">{props.service.location}</span></div>}
 
         />
         <CardMedia
             className="mycard-media"
             style={{ height: 0, paddingTop: '56.25%' }}
-            image={props.service.meta_service_img}
-            title={props.service.meta_service_name}
+            image={props.service.service_img}
+            title={props.service.service_name}
         />
         <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
                 <div className="service-card-list-text">
-                    {props.service.meta_desc}
+                {props.service.menu && 
+                                        props.service.menu.map((item, idx)=>{
+                                           return idx ? ", " + item.name__ : item.name__ 
+                                        })
+                                        
+                                        }
                 </div>
             </Typography>
         </CardContent>
@@ -81,4 +89,4 @@ const ServiceCardSingle = props =>{
     )
 }
 
-export default ServiceCardSingle;
+export default SubServiceCardSingle;
