@@ -41,11 +41,11 @@ const Products = props => {
 
     const handleSubServiceClick = (id) => {
 
-        console.log("see sub service", id)  
+        console.log("see sub service", id)
         fetchSubServiceData(id);
     }
-    
-    const fetchSubServiceData = id =>{
+
+    const fetchSubServiceData = id => {
         requests.call("get", `vendor/services/${id}`)
             .then((res) => {
                 console.log(res)
@@ -115,16 +115,18 @@ const Products = props => {
         requests.call("post", `vendor/service/${activeService}`, survey.data)
             .then((res) => {
                 survey.data.menuItem && survey.data.menuItem.length && survey.data.menuItem.map((menu) => {
-                    createMenuAPI(menu,res.id)
+                    createMenuAPI(menu, res.id)
                 })
                 survey.data.menuList && survey.data.menuList.length && survey.data.menuList.map((menu) => {
-                    createMenuAPI(menu,res.id)
+                    createMenuAPI(menu, res.id)
                 })
+                survey.clear(true, true);
+
             })
 
 
     }
-    const createMenuAPI = (menu,id) => {
+    const createMenuAPI = (menu, id) => {
         menu = { ...menu, meta_service_id: activeService }
 
         requests.call("post", `vendor/menu/${id}`, menu)

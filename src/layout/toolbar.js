@@ -21,7 +21,9 @@ const Toolbar = props => {
     // if (props.vendor) { return <div></div> }
     return (<Navbar bg="light" expand="lg" style={{ position: "fixed", width:  "-webkit-fill-available",paddingLeft : "5%"  ,paddingRight : "5%"   ,zIndex: "1" }}>   
        {/* { props.vendor && <Navbar.Brand style={{marginLeft : "0px"}} href="/vendor">M-Essentials</Navbar.Brand>} */}
-       { props.vendor &&  document.documentElement.clientWidth > "768" ?  <Navbar.Brand style={{marginLeft : "0px"}} href="/vendor">M-Essentials</Navbar.Brand> :<Navbar.Brand href="/">M-Essentials</Navbar.Brand> }
+       { props.vendor &&  document.documentElement.clientWidth > "768" &&  <Navbar.Brand style={{marginLeft : "0px"}} href="/vendor">M-Essentials</Navbar.Brand>    }
+       { props.admin &&  document.documentElement.clientWidth > "768" &&  <Navbar.Brand style={{marginLeft : "0px"}} href="/superadmin">M-Essentials</Navbar.Brand> }
+       { !props.admin &&  !document.documentElement.clientWidth > "768" &&  <Navbar.Brand style={{marginLeft : "0px"}} href="/">M-Essentials</Navbar.Brand> }
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
 
@@ -32,6 +34,12 @@ const Toolbar = props => {
                     <Nav.Link  href="#" onClick={handleRedirect.bind(this,"/vendor/my-products")}>My Products</Nav.Link>
                     <Nav.Link  href="#" onClick={handleRedirect.bind(this,"/vendor/my-messages")}>Messages</Nav.Link>
           
+                </Nav>
+            }
+        {props.admin &&  <Nav className="mr-auto vendor-navbar-links">
+                    <Nav.Link  href="#" onClick={handleRedirect.bind(this,"/superadmin")}>Home</Nav.Link>
+                    <Nav.Link  href="#" onClick={handleRedirect.bind(this,"/superadmin/my-requests")}>My requests</Nav.Link>
+                
                 </Nav>
             }
     

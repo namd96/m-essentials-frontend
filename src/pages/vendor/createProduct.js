@@ -109,6 +109,8 @@ export default class CreateService extends React.Component {
         requests.call("post", "vendor/create-product", survey.data)
             .then((res) => {
                 console.log(res)
+            survey.clear(true, true); 
+
             })
 
     }

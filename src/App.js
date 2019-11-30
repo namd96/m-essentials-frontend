@@ -11,6 +11,8 @@ import SearchPage from './pages/searchPage'
 import Messages from './pages/messages';
 import NotFound from './pages/404';
 import VendorHome from './pages/vendor/login';
+import AdminHome from './pages/admin/adminHome';
+import AdminRequests from './pages/admin/adminRequests';
 import CreateService from './pages/vendor/createService';
 import CreateProduct from './pages/vendor/createProduct';
 import CreateRequest from './pages/vendor/createRequest';
@@ -27,7 +29,7 @@ function App() {
   return (
     <GlobalState>
       {
-        window.location.href.includes("vendor") || window.location.href.includes("superadmin") ? <div>
+        window.location.href.includes("vendor") ? <div>
           <Toolbar vendor={true} />
           <div style={{ display: document.documentElement.clientWidth < "768" ? "" : "none" }}>
             <Burger vendor={true} />
@@ -42,27 +44,40 @@ function App() {
             <Route path="/vendor/my-products" component={MyProducts} />
             <Route path="/vendor" component={VendorHome} />
           </Switch>
-          <Footer/>
-        </div> :
-          <div className="App">
-            <Toolbar />
-            <Burger />
-            <div className="toolbar-filler"></div> {/* filler for fixed toolbar */}
-            <header className="App-header">
+          <Footer />
+        </div> : window.location.href.includes("superadmin") ?
+            <div>
+              <Toolbar admin={true} />
+              <div style={{ display: document.documentElement.clientWidth < "768" ? "" : "none" }}>
+                <Burger superadmin={true} />
+              </div>
+              <div className="toolbar-filler"></div>
               <Switch>
-                <Route path="/search/:query" component={SearchPage} />
-                <Route path="/product/:id" component={ProductDetails} />
-                <Route path="/service/:id" component={ServiceDetails} />
-                <Route path="/chat/:id" component={ChatPage} />
-                <Route path="/messages" component={Messages} />
-                <Route path="/search/" component={NotFound} />
-                <Route exact path="/" component={Home} />
-                <Route path="*" component={NotFound} />
-              </Switch>
-            </header>
-          <Footer/>
 
-          </div>
+
+                <Route path="/superadmin/my-requests" component={AdminRequests} />
+                <Route path="/superadmin" component={AdminHome} />
+              </Switch>
+              <Footer /> </div> :
+            <div className="App">
+              <Toolbar />
+              <Burger />
+              <div className="toolbar-filler"></div> {/* filler for fixed toolbar */}
+              <header className="App-header">
+                <Switch>
+                  <Route path="/search/:query" component={SearchPage} />
+                  <Route path="/product/:id" component={ProductDetails} />
+                  <Route path="/service/:id" component={ServiceDetails} />
+                  <Route path="/chat/:id" component={ChatPage} />
+                  <Route path="/messages" component={Messages} />
+                  <Route path="/search/" component={NotFound} />
+                  <Route exact path="/" component={Home} />
+                  <Route path="*" component={NotFound} />
+                </Switch>
+              </header>
+              <Footer />
+
+            </div>
       }
 
     </GlobalState>
