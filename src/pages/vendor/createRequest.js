@@ -15,7 +15,7 @@ export default class CreateService extends React.Component {
                 "completedHtml": "",
                 elements: [
                     { type: "text", name: "title", title: "Mention the title", isRequired: true },
-                    { type: "dropdown", name: "req_type", title: "Request to create", choices: ["cat", "ser"], isRequired: true, },
+                    // { type: "dropdown", name: "req_type", title: "Request to create", choices: ["cat", "ser"], isRequired: true, },
 
                 ]
 
